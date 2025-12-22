@@ -12,7 +12,7 @@ This lab provides a hands-on experience using modern development and security to
 
 1.  **Welcome & Overview:** Instructors provide an overview of the UDF environment and a brief walkthrough of the lab workflow.
 2.  **Verify Visual Studio Code Server Access (browser-based):**
-    - Ensure you can access the VSCode Server interface. Password: AppWorld2026!
+    - Ensure you can access the VSCode Server interface. Password on Documentation of UDF blueprint
     - *(Image Reference: `Appworld2026/Module0/code-server-access.png`,`Appworld2026/Module0/code-server-access-password.png`,`Appworld2026/Module0/code-server-landing.png`)*
     - NOTE: Stuendes will somtime see this pop-up. They shoudl allow
     - *(Image Reference: `Appworld2026/Module0/module1-cline-demo-app-terminal-4-chrome-popup`)*
