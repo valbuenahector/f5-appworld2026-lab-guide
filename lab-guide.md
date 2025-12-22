@@ -76,7 +76,9 @@ This module is a demonstration of **AI-assisted "Vibe Coding"** and how it can i
 2.  **Generate App Request:** Use the prompt below to request a simple Flask web application. Make sure the the Cline toggle is set to "Plan":
 
     ```text
-    Create a simple Flask web application for demo purposes.
+    *** THIS PROPMT WILL CHANGE. ONLY FOR INITAL TESITNG ****
+
+    Create a simple Flask web application for demo purposes. 
 
     Requirements:
     - Use Python Flask.
