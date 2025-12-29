@@ -76,40 +76,81 @@ This module is a demonstration of **AI-assisted "Vibe Coding"** and how it can i
 2.  **Generate App Request:** Use the prompt below to request a simple Flask web application. Make sure the the Cline toggle is set to "Plan":
 
     ```text
-    *** THIS PROPMT WILL CHANGE. ONLY FOR INITAL TESITNG ****
+        ==============================================
+        Create a simple Flask web application for demo purposes (Module 1 – AppWorld 2026 vibe-coding demo).
 
-    Create a simple Flask web application for demo purposes. 
+        High-level goal:
+        - A small, polished “conference-style” site inspired by AppWorld 2026 themes (apps, APIs, AI, hands-on learning).
+        - IMPORTANT: Do NOT copy text verbatim from any website. Paraphrase into original wording.
 
-    Requirements:
-    - Use Python Flask.
-    - No authentication, no database, no external APIs.
-    - Single Flask app file named app.py.
-    - Use Jinja2 templates.
-    - Create a modern, clean UI using Tailwind CSS via CDN (do NOT install Tailwind locally).
-    - App should be visually appealing but simple.
-    - Do not use the echo or open commands.
+        Requirements:
+        - Use Python Flask.
+        - No authentication, no database, no external APIs.
+        - Single Flask app file named app.py.
+        - Use Jinja2 templates.
+        - Create a modern, clean UI using Tailwind CSS via CDN (do NOT install Tailwind locally).
+        - App should be visually appealing but simple.
+        - Do not use the echo or open commands.
 
-    App behavior:
-    - Home page (/) with:
-      - A centered hero section with a title and short description.
-      - A navigation bar at the top.
-      - 3 feature cards laid out in a responsive grid.
-    - An /about page with a short paragraph explaining this is a demo app.
-    - Use base.html for layout and extend it in other templates.
+        Pages / behavior:
+        1) Home page (/)
+        - A top navigation bar with links: Home, Agenda, About.
+        - A centered hero section:
+        - Title: “AppWorld 2026 – Code. Secure. Repeat.”
+        - Subtitle: A short, original (paraphrased) blurb about learning to build, deliver, and protect apps/APIs/AI with hands-on labs.
+        - A primary CTA button linking to /agenda.
+        - 3 feature cards in a responsive grid (each with title + 2–3 bullet points):
+        - “Build Faster” (AI-assisted dev + CI/CD vibe, phrased generically)
+        - “Secure by Design” (WAAP, API security, bot defense themes, phrased generically)
+        - “Repeatable Workflow” (“Code. Secure. Repeat.” loop, phrased generically)
+        - A small “Highlights” strip below the cards with 3 quick stats (static placeholders):
+        - “3 Modules”, “Hands-on Demos”, “WAAP + API Security”
 
-    Technical requirements:
-    - Flask app must bind to 0.0.0.0.
-    - App must be runnable with: flask run --host=0.0.0.0 --port=5000
-    - Do not include Docker, Kubernetes, CI/CD, or security features.
-    - Keep the code readable and well-commented.
+        2) Agenda page (/agenda)
+        - Show a simple agenda with 3 time blocks (static, fake times are OK):
+        - “Module 0 – Orientation”
+        - “Module 1 – Vibe Coding Demo”
+        - “Module 2/3 – Deploy + API Discovery”
+        - Each agenda item should have:
+        - Title
+        - 1–2 line description (original phrasing)
+        - A “Track” badge (e.g., DevSecOps, App Delivery, API Security)
+        - Add a tiny bit of interactivity:
+        - Support a query string filter like /agenda?track=API
+        - If track is provided, filter agenda items server-side and show “Filtered by: …”
+        - Provide 3 filter links/buttons at top: All, DevSecOps, API, Delivery.
 
-    Deliverables:
-    - app.py
-    - templates/base.html
-    - templates/index.html
-    - templates/about.html
+        3) About page (/about)
+        - A short paragraph explaining:
+        - This is a demo-only app for a lab.
+        - It intentionally stays simple (no auth/db).
+        - It exists to demonstrate AI-generated code + UI scaffolding.
+        - Add a small callout panel: “Lab note: This demo is not the production app used in later modules.”
 
-    After generating the files, explain how to run the app using flask run.
+        UI / layout:
+        - Use templates/base.html for layout (nav + footer).
+        - Use templates/index.html, templates/agenda.html, templates/about.html extending base.
+        - Add a footer with small text: “Demo app for AppWorld 2026 lab – Code. Secure. Repeat.”
+
+        Technical requirements:
+        - Flask app must bind to 0.0.0.0.
+        - App must be runnable with: flask run --host=0.0.0.0 --port=5000
+        - Keep the code readable and well-commented.
+        - Do not include Docker, Kubernetes, CI/CD, or security features.
+
+        Deliverables:
+        - app.py
+        - templates/base.html
+        - templates/index.html
+        - templates/agenda.html
+        - templates/about.html
+
+        After generating the files, explain how to run the app using flask run.
+        ==============================================
+
+
+
+
     ``` 
     - *(Image Reference: `Appworld2026/Module1/module1-cline-demo-app-plan.png`)*
 3.  **Review AI Plan (Plan Mode):** The AI will outline its plan to create the necessary files.
