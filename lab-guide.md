@@ -180,3 +180,85 @@ This module is a demonstration of **AI-assisted "Vibe Coding"** and how it can i
 9.  **Stop Flask and Clean Up:** - Press `Ctrl+C` in the terminal to stop the server.
     - *(Image Reference: `Appworld2026/Module1/module1-cline-demo-app-terminal-ctrlc-close.png`)*
     - *(Image Reference: `Appworld2026/Module1/module1-cline-demo-app-cleanup.png`)*
+
+---
+
+## Module 2 – Deploy and Secure F5 AI-Generated App (45–50 minutes)
+
+In this module, you will transition from "vibe coding" to a structured DevSecOps workflow. You'll work with a pre-created F5 AI-generated application, implement security-as-code using GitLab CI/CD, and deploy runtime protection on F5 Distributed Cloud.
+
+### TASK 1 – Commit Pre-created F5 AI-generated app
+
+1.  **USER: Change VSCode Workspace:** Open the Module 2 workspace in VSCode to review the F5 AI-generated app.
+    - *(Image Reference: `Appworld2026/Module2/module2-open-module2-workspace-1.png`, `Appworld2026/Module2/module2-open-module2-workspace-2.png`)*
+    - Close any open code assistant popups.
+    - *(Image Reference: `Appworld2026/Module2/close-vscode-agent-more.png`)*
+
+2.  **USER: Access GitLab:** Log in to GitLab CE and explore the pre-created repository.
+    - *(Image Reference: `Appworld2026/Module2/module2-gitlab-access.png`, `Appworld2026/Module2/module2-gitlab-login.png`)*
+    - Explore the student dashboard and the project repository.
+    - *(Image Reference: `Appworld2026/Module2/module2-gitlab-student-dashboard.png`, `Appworld2026/Module2/module2-gitlab-student-project-1.png`, `Appworld2026/Module2/module2-gitlab-student-project-2.png`)*
+
+3.  **USER: Create `security-controls.yaml`:** In the VSCode Module 2 workspace, create a new file named `security-controls.yaml`. This file represents our "Policy-as-Code."
+    - *(Image Reference: `Appworld2026/Module2/module2-vscode-cretate-security-control-1.png`, `Appworld2026/Module2/module2-vscode-cretate-security-control-2.png`)*
+
+4.  **USER: Configure Security Policy:** Copy and paste the following content into `security-controls.yaml`:
+
+    ```yaml
+    # F5 AppWorld 2026 - Security Controls
+    # Policy-as-Code definition for F5XC WAAP
+
+    controls:
+    waf:
+        enabled: false
+    api_discovery:
+        enabled: false
+    bot_advanced:
+        enabled: false
+    rate_limiting:
+        enabled: false
+    ```
+    - *(Image Reference: `Appworld2026/Module2/module2-vscode-cretate-security-control-3.png`)*
+
+5.  **USER: Commit and Push:** Commit the changes and push them to GitLab.
+    - If prompted, configure your git username and email.
+    - *(Image Reference: `Appworld2026/Module2/module2-vscode-cretate-security-control-git-username.png`)*
+    - Stage the changes, enter a commit message, and sync (push) to the repository.
+    - *(Image Reference: `Appworld2026/Module2/module2-vscode-cretate-security-control-4-commit.png`, `Appworld2026/Module2/module2-vscode-cretate-security-control-4-commit-warning.png`, `Appworld2026/Module2/module2-vscode-cretate-security-control-4-sync.png`, `Appworld2026/Module2/module2-vscode-cretate-security-control-4-sync-warning.png`)*
+
+6.  **AUTO: Pipeline Execution (Initial Run):** GitLab CI/CD automatically triggers the following stages:
+    - `policy_gate`: Evaluates `security-controls.yaml` (WAF must be enabled).
+    - `test`: Runs simple SAST tests (e.g., `pytest`).
+    - `build`: Builds the Docker image and pushes it to GCP Artifact Registry.
+    - `deploy`: Deploys F5XC security controls via Terraform.
+
+7.  **AUTO: Pipeline Failure:** The pipeline fails at the `policy_gate` stage because the WAF setting was set to `false`.
+
+8.  **USER: Enable WAF:** Change the WAF setting in `security-controls.yaml` to `enable`.
+
+    ```yaml
+   controls:
+    waf:
+        enabled: true
+    ```
+
+9.  **USER: Re-commit and Push:** Commit and push the updated `security-controls.yaml` to trigger the pipeline again.
+
+10. **AUTO: Pipeline Success:** The GitLab CI/CD pipeline runs and all four stages should succeed:
+    - `policy_gate` passes.
+    - `test` passes.
+    - Docker Image v1.0 is built and pushed to Google Artifact Registry.
+    - Terraform creates F5XC vK8s workload, origin, health check, HTTPS LB, and WAF.
+
+11. **USER: Access the Application:** Once the pipeline completes successfully, access the app using your namespace-specific URL:
+    - URL: `https://<NAMESPACE>-lb.lab-app.f5demos.com`
+    - *(Image Reference: `Appworld2026/Module2/module2-app-home-page`)*
+
+### TASK 2 – Attack & Review
+
+1.  **USER: Launch Attacks:** Simulate simple attacks against the F5 AI-generated app. Try adding scripts or common injection patterns to the URL:
+    - Example: `https://<NAMESPACE>-lb.lab-app.f5demos.com/<script>alert(1)</script>`
+
+2.  **USER: Review Security Events:** Access the F5 Distributed Cloud console to review the blocked security events and observe how the WAAP protected the application.
+
+>>>>+ ADDED

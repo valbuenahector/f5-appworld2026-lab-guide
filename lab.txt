@@ -1,0 +1,118 @@
+Summary
+Lab Overview:
+This two-hour, hands-on lab introduces participants to a modern AI-assisted DevSecOps workflow built around the principle “Code. Secure. Repeat.” Attendees will experience how vibe coding accelerates application development, how CI/CD pipelines enforce security controls, and how F5 Distributed Cloud (F5XC) provides runtime protection and continuous security validation through WAAP and Web App Scanning (WAS).
+Lab Objectives:
+1.	Introduce Vibe Coding – benefits, flaws, and DevOps acceleration (Module 1).
+2.	Demonstrate CI/CD-driven security controls using GitLab (Module 2).
+3.	Show F5XC runtime protection with WAAP (Module 3).
+4.	Demonstrate F5XC Web App Scanning as a DAST tool (Module 4).
+Table of Contents:
+Module 0 – Intro & Environment Orientation
+Module 1 – AI-Generated Vulnerable App (Vibe Coding)
+Module 2 – CI/CD + Initial Security Controls
+Module 3 – Advanced Runtime Security with F5XC
+Module 4 – Web App Scanning (WAS)
+
+The lab reinforces a repeatable loop:
+Code (AI-assisted) → Commit → Scan (SAST/WAS/API) → Protect (DAST/WAAP/API Sec/Bot/Anomaly) → Improve → Repeat.
+
+
+
+Complete Lab Flow (2 Hours)
+Module 0 – Intro & Environment Orientation (20 minutes)
+Instructors provide an overview of the UDF environment.
+TASK 1 – Verify Access   (Jeff)
+-	USER: Student verify access to:
+•	Visual Studio Code Server (browser-based)
+•	GitLab Community Edition (CE) – Image Pending
+•	Verify F5 Distributed Cloud tenant access and pre-created objects  
+	Namespaces
+	CEs and VSITE – Image Pending
+	vK8s – Config Pending (Chas team will automate this. Waiting in LAB ID)
+-	USER: Brief walkthrough of the end-to-end lab workflow and objectives.
+TASK 2 – Configure Cline Extension and GITLAB environment   (Jeff)
+-	USER: Students configure Vscode Cline extension with “Bring your own token.”
+•	API provider: GCP Vertex AI
+•	Project ID: GCP project ID
+•	Region: us-central1 
+•	Model: gemini-2.5-flash
+-	USER: On F5XC, the student generates API token
+-	USER: Student configures GitLab with the F5XC API and verifies connectivity
+
+Module 1 – AI-Generated Vulnerable App (15–20 minutes)
+TASK 1 – Explore VScode and Cline Extension (Darshan)
+-	USER: Open to VSCode via browser and explore Cline Extension configuration and capabilities. 
+-	USER: using “pre-canned prompt”, use the Cline Extension to generate the code and files for an AI-Generated Vulnerable App. The Cline Extension will be preconfigured with access to Gemini 2.5 flash 
+The goal is to:
+•	Generate a simple vulnerable application (demo-only).
+•	Observe the benefits through the use VSCode with Cline Extension and see how files and code are generated.
+•	Point out the flaws and vulnerabilities of AI-assisted coding and Vibe Coding. A pre-coded application using a similar prompt and pre-scanned using F5XC WAS can be used to demonstrate vulnerabilities.
+
+-	Notes: 
+•	This generated demo application is NOT meant to be used for the hands-on sections of the lab.
+•	Some student generated application might fail, and that is to be expected with Vibe coding and the non deter mistic nature of generative AI 
+Module 2 – Deploy and secure F5 AI Generated app (45–50 minutes)  (Darshan)
+TASK 1 – Commit Pre-created F5 AI-generated app 
+-	USER:  Changes VSCode workspace to module 2 and reviews F5 AI-generated app.
+-	USER: Access Gitlab and explores re-created repo with F5 AI-generated app’s latest code, and also explore CI/CD pipeline config
+-	USER: Creates security-controls.yaml in VScode module 2 workspace (TEXT explaining Policy-as-code)
+-	USER: Copy and Paste content of security-controls.yaml from the lab guide
+-	USER: Commits and pushes the source code to GitLab CE to ensure consistency across attendees.
+-	AUTO: GitLab CI/CD runs, which have four stages:
+
+•	policy_gate  security-controls.yaml evaluation (WAF min)
+•	test  simple SAST test (pytest)
+•	build  docker build and push to GCP artifacts
+•	deploy  Deploy F5XC security controls
+
+-	AUTO: Pipeline fails due to deliberately leaving the WAF setting set to disable.
+-	USER: changes the WAF setting to enable.
+-	USER: commits the code again and triggers the pipeline again.
+-	AUTO: GitLab CI/CD runs again, and four stages should succeed.
+•	GitLab CI/CD performs build Image v1.0.
+•	Push Image v1.0 to Google Artifacts 
+•	Creates F5XC vk8s workload, origin, health check, HTTPS LB, and WAF using Terraform
+-	USER: User access app using:
+•	<NAMESPACE>-lb.lab-app.f5demos.com
+TASK 2 – Attack    (Darshan)
+-	USER: Launches simple attacks to the F5 IA generated app:
+o	<NAMESPACE>-lb.lab-app.f5demos.com/<scripts>
+-	USER: review security events 
+
+Module 3 – Adding Advanced	 Security Controls to Vulnerable App
+
+TASK 1 – Enable F5XC API Discovery (10 minutes)  (Jeff)
+-	USER:  adds uses a pre-canned prompt to vibe code new API endpoints using Cline.
+-	AUTO: Gemini creates new API endpoints; more critically, it creates a new file: openapi/openapi.json. This file is required for CI/CD pipeline to work 
+
+-	USER:  updates security-controls.yaml and enables “api_discovery”
+.
+-	USER:  commits and pushes changes to GitLab.
+-	AUTO: GitLab CI/CD runs again, and four stages should succeed.
+•	GitLab CI/CD performs build Image v1.1.
+•	Push Image v1.1 to Google Artifacts 
+•	Uploads openapi.json creates F5XC API Definition and enabled API discovery on the HTTPS LB
+
+TASK 2 – Enable F5 Bot protection on the new login page
+-	USER:  adds uses a pre-canned prompt to vibe code new login page and contact page.
+-	AUTO: Gemini creates new new login page and contact page; more critically, it creates the new files: app/templates/login.html + app/templates/contact.html. These files is required for CI/CD pipeline to work 
+-	USER:  updates security-controls.yaml and enables “bot_advance”
+-	USER:  commits and pushes changes to GitLab.
+-	AUTO: GitLab CI/CD runs again, and four stages should succeed.
+•	GitLab CI/CD performs build Image v1.2.
+•	Push Image v1.2 to Google Artifacts 
+•	Configure F5XC API bot protection on the HTTPS LB
+
+
+Module 4 – Create WAS Application Scan and Review Scan Results (10–15 minutes)   (Darshan)
+-	INSTRUCTOR: Access Web App Scanning and explore
+-	INSTRUCTOR: review WAS reports for:
+•	Pre-scanned of the AI-generated Application without F5XC WAAP
+•	Pre-scanned of the AI-generated Application with F5XC WAAP
+
+-	INSTRUCTOR facilitates analysis and discussion of:
+•	WAF detections and blocked attacks
+•	API Security discoveries, schema violations, and anomalies
+•	Bot Defense signals
+•	Reinforce the repeatable workflow: “Code. Secure. Repeat.”
+

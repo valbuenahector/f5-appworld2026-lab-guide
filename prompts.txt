@@ -1,0 +1,5 @@
+===============
+MODULE 2 Prompt
+===============
+
+Based on the lab flow on the lab.txt file update the lab-guide.md module 2 section with steps for the lab flow and reference the filenames on folder Appworld2026/Module2/. In the lab flow steps that start with "USER:" means that students perform this step and the ones that start "AUTO:" eans that an automatic flow is running (ex pipieline running) so it is more a vizualization step. Kee the lab objectives as references  
