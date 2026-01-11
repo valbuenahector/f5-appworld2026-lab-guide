@@ -252,7 +252,7 @@ In this module, you will transition from "vibe coding" to a structured DevSecOps
 
 11. **USER: Access the Application:** Once the pipeline completes successfully, access the app using your namespace-specific URL:
     - URL: `https://<NAMESPACE>-lb.lab-app.f5demos.com`
-    - *(Image Reference: `Appworld2026/Module2/module2-app-home-page`)*
+    - *(Image Reference: `Appworld2026/Module2/module2-app-home-page.png`)*
 
 ### TASK 2 – Attack & Review
 
