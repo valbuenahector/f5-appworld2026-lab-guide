@@ -42,12 +42,13 @@ This lab provides a hands-on experience using modern development and security to
 ### TASK 2 – Configure Cline Extension and GitLab Environment
 
 1.  **Configure VSCode Cline Extension:**
-    - Make sure you in the Cline extension view with Vscode 
+    - Make sure you are in the Cline extension view with Vscode 
     - *(Image Reference: `Appworld2026/Module0/module1-cline-icon.png`)*
     - Choose **"Bring my own API key"** for the Cline extension.
     - *(Image Reference: `Appworld2026/Module0/cline-config-1.png`)*
     - Configure the provider:
         - **API Provider:** GCP Vertex AI
+        - **Google Cloud Project ID:** f5-gcs-4261-sales-appworld2026
         - **Model:** `gemini-2.5-flash`
     - *(Image Reference: `Appworld2026/Module0/cline-config-2.png`)*
     - Close Cline popup:
